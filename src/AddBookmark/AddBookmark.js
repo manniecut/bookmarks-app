@@ -52,12 +52,12 @@ class AddBookmark extends Component {
         rating.value = ''
         this.props.history.push('/')
         this.props.onAddBookmark(data)
-      })
+      }) 
       .catch(error => {
         this.setState({ error })
       })
   }
-
+//
   render() {
     const { error } = this.state
     const { onClickCancel } = this.props
