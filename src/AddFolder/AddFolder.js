@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import BookmarksContext from '../BookmarksContext'
 import config from '../config'
-import './AddBookmark.css';
+import './AddFolder.css';
 
 const Required = () => (
-  <span className='AddBookmark__required'>*</span>
+  <span className='AddFolder__required'>*</span>
 )
 
-class AddBookmark extends Component {
+class AddFolder extends Component {
   static contextType = BookmarksContext;
 
   state = {
@@ -25,7 +25,7 @@ class AddBookmark extends Component {
       rating: rating.value,
     }
     this.setState({ error: null })
-    fetch(config.API_ENDPOINT, {
+    fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
       body: JSON.stringify(bookmark),
       headers: {
@@ -48,7 +48,7 @@ class AddBookmark extends Component {
         url.value = ''
         description.value = ''
         rating.value = ''
-        this.context.AddBookmark(data)
+        this.context.AddFolder(data)
         this.props.history.push('/')
       })
       .catch(error => {
@@ -62,13 +62,13 @@ class AddBookmark extends Component {
   render() {
     const { error } = this.state
     return (
-      <section className='AddBookmark'>
+      <section className='AddFolder'>
         <h2>Create a bookmark</h2>
         <form
-          className='AddBookmark__form'
+          className='AddFolder__form'
           onSubmit={this.handleSubmit}
         >
-          <div className='AddBookmark__error' role='alert'>
+          <div className='AddFolder__error' role='alert'>
             {error && <p>{error.message}</p>}
           </div>
           <div>
@@ -124,7 +124,7 @@ class AddBookmark extends Component {
               required
             />
           </div>
-          <div className='AddBookmark__buttons'>
+          <div className='AddFolder__buttons'>
             <button type='button' onClick={this.handleClickCancel}>
               Cancel
             </button>
@@ -139,4 +139,4 @@ class AddBookmark extends Component {
   }
 }
 
-export default AddBookmark;
+export default AddFolder;
